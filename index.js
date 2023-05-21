@@ -30,5 +30,30 @@ export default function solution(content) {
   Процент безопасных для человека растений: ${procentOfSafePlants}%
   Процент опасных для человека растений: ${procentOfDangerousPlants}%`);
 
+  // Step 4
+ const allAges = normalizedData
+  .filter((el) => el[1].toLowerCase().includes('леса'))
+  .map((el) => el[3])
+  .reduce((acc, el) => {
+    const separatedAge = el.split(' ');
+    const separatedDate = separatedAge[0].split('-');
+    return  [...acc, separatedDate]
+  }, []);
+
+  // const averageAge = allAges
+  // .map((el) => {
+  //   if (el.length == 2) {
+  //     return el.reduce((acc, numb) => acc + Number(numb), 0) / 2;
+  //   } else {
+  //     return Number(el[0]);
+  //   }
+  // })
+  // .reduce((acc, numb) => acc + numb) / allAges.length;
+
+  const averageAge = _.mean(allAges.map((el) => _.mean(el.map(Number))));
+
+  console.log(Math.round(averageAge));
+
   // END
+
 }
